@@ -12,3 +12,8 @@ It will be good to create a new API key.
 pip install --user colorama requests
 ```
 4. Run the script
+
+## Examples
+```bash
+python source.py -k 'C:\\path\\to\\api\\key.txt'
+```
