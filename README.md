@@ -15,5 +15,5 @@ pip install --user colorama requests
 
 ## Examples
 ```bash
-python source.py -k 'C:\\path\\to\\api\\key.txt'
+python source.py -k "C:\path\to\api\key.txt"
 ```
