@@ -8,7 +8,10 @@ from platform import system
 from os import linesep
 
 sys_name = system()
-if sys_name == "Windows":
+
+if "-k" in argv:
+    apikey = open(argv[argv.index('-k') + 1], 'r').read().replace(linesep, '')
+elif sys_name == "Windows":
     apikey = open(
         expanduser('~/.rescuetime'),
         'r'
