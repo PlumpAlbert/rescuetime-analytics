@@ -80,11 +80,11 @@ def get_time_by_productivity(day, type):
 
 def print_table_header():
     columns = [
-        Back.YELLOW + Fore.BLACK + 'Date'.center(12, ' '),
-        Back.BLUE + Fore.BLACK + 'VP'.center(7, ' '),
+        Back.GREEN + Fore.BLACK + 'Date'.center(12, ' '),
+        Back.CYAN + Fore.BLACK + 'VP'.center(7, ' '),
         Back.CYAN + Fore.BLACK + 'P'.center(7, ' '),
         Back.WHITE + Fore.BLACK + 'N'.center(7, ' '),
-        Back.MAGENTA + Fore.BLACK + 'D'.center(7, ' '),
+        Back.RED + Fore.BLACK + 'D'.center(7, ' '),
         Back.RED + Fore.BLACK + 'VD'.center(7, ' ')
     ]
     print(''.join(columns) + Style.RESET_ALL)
@@ -115,11 +115,11 @@ if __name__ == '__main__':
         total_hours += h
         total_minutes += m
         columns = [
-            Fore.YELLOW + day + Style.RESET_ALL,
-            f'{Fore.BLUE}{vp_time[0]:02d}:{vp_time[1]:02d}{Style.RESET_ALL}',
+            Fore.GREEN + day + Style.RESET_ALL,
+            f'{Fore.CYAN}{vp_time[0]:02d}:{vp_time[1]:02d}{Style.RESET_ALL}',
             f'{Fore.CYAN}{p_time[0]:02d}:{p_time[1]:02d}{Style.RESET_ALL}',
             f'{n_time[0]:02d}:{n_time[1]:02d}',
-            f'{Fore.MAGENTA}{d_time[0]:02d}:{d_time[1]:02d}{Style.RESET_ALL}',
+            f'{Fore.RED}{d_time[0]:02d}:{d_time[1]:02d}{Style.RESET_ALL}',
             f'{Fore.RED}{vd_time[0]:02d}:{vd_time[1]:02d}{Style.RESET_ALL}'
         ]
         for c in columns:
