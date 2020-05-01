@@ -9,6 +9,8 @@ from os import linesep
 
 sys_name = system()
 
+wage=225 # Money earned per hour
+
 if "-k" in argv:
     apikey = open(argv[argv.index('-k') + 1], 'r').read().replace(linesep, '')
 elif sys_name == "Windows":
@@ -128,7 +130,7 @@ if __name__ == '__main__':
 
     total_hours += int(total_minutes / 60)
     total_minutes = total_minutes % 60
-    total_time = total_hours + float(f'{total_minutes / 60:.2f}')
-    print(f'{Fore.GREEN}Total time:{Style.RESET_ALL} {total_hours}:{total_hours}')
-    print(f'{Fore.GREEN}Total time (multiplied):{Style.RESET_ALL} {total_time * 1.33:.2f}')
-    print(f'{Fore.GREEN}Money earned:{Style.RESET_ALL} {total_time * 1.33 * 200:.2f}')
+    total_time = (total_hours + float(f'{total_minutes / 60:.2f}')) * 1.33
+    print(f'{Fore.GREEN}Total time:{Style.RESET_ALL} {total_hours}:{total_minutes:02d}')
+    print(f'{Fore.GREEN}Total time (multiplied):{Style.RESET_ALL} {int(total_time)}:{(total_time - int(total_time)) * 60:.0f}')
+    print(f'{Fore.GREEN}Money earned:{Style.RESET_ALL} {total_time * wage:.2f}')
