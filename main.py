@@ -9,7 +9,7 @@ from csv import DictReader
 parser = argparse.ArgumentParser(
     description='RescueTime Analytic API from your command line')
 # PARSER ARGUMENTS
-parser.add_argument('-k', metavar='KEY', type=str,
+parser.add_argument('-k', '--key', metavar='KEY', type=str,
                     help="Path to the file with user's API key")
 parser.add_argument('-f', '--from', nargs=1, dest='rb', metavar='YYYY-MM-DD', type=str,
                     help="Sets the start day for data batch, inclusive.\
