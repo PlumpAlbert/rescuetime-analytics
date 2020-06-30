@@ -1,5 +1,5 @@
 # Script to get your productive time info from RescueTime API
-
+![Example](./example.png)
 ## How to use
 
 1. Get your API key from [RescueTime](https://www.rescuetime.com/anapi/manage).
