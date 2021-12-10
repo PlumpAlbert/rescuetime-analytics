@@ -30,11 +30,12 @@ python main.py [OPTIONS]
 
 ## Arguments
 
-- `-k`, `--key` - Path to the file with user's API key
-- `-f`, `--from` - Sets the start day for data batch, inclusive. (always at time 00:00, start hour/minute not supported)
-- `-t`, `--to` - Sets the end day for data batch, inclusive. (always at time 00:00, start hour/minute not supported)
-- `-w`, `--wage` - The number of money earned by hour from productive time
-- `--multiplier` - Additional multiplier for productive time
+- `-k`, `--key` - RescueTime API key for the user
+- `-f`, `--file` - Path to the file with user's API key
+- `--start` - Sets the start day for data batch, inclusive. (always at time 00:00, start hour/minute not supported)
+- `--end` - Sets the end day for data batch, inclusive. (always at time 00:00, start hour/minute not supported)
+- `-w`, `--wage` - Amount of money you earn per productive hour
+- `--multiplier` - If provided all productive time will be multiplied by that value
 
 ### Legacy `How To`
 
