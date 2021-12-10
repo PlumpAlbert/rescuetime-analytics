@@ -5,38 +5,40 @@ from rescuetime import analytic_data
 from datetime import date
 from colorama import Fore, Back, Style
 from csv import DictReader
+from json import load
 
 parser = argparse.ArgumentParser(
     description='RescueTime Analytic API from your command line')
-# PARSER ARGUMENTS
+# PARSE ARGUMENTS
 parser.add_argument('-k', '--key', dest='k', metavar='KEY', type=str,
+                    help="RescueTime API key for the user")
+parser.add_argument('-f', '--file', dest='file', metavar='FILE', type=str,
                     help="Path to the file with user's API key")
-parser.add_argument('-f', '--from', nargs=1, dest='rb', metavar='YYYY-MM-DD', type=str,
+parser.add_argument('--start', nargs=1, dest='rb', metavar='YYYY-MM-DD', type=str,
                     help="Sets the start day for data batch, inclusive.\
                     (always at time 00:00, start hour/minute not supported)")
-parser.add_argument('-t', '--to', nargs=1, dest='re', metavar='YYYY-MM-DD', type=str,
+parser.add_argument('--end', nargs=1, dest='re', metavar='YYYY-MM-DD', type=str,
                     help="Sets the end day for data batch, inclusive.\
                     (always at time 00:00, start hour/minute not supported)")
 parser.add_argument('-w', '--wage', dest='wage', type=float,
-                    help="Variable to calculate wage from productive time")
+                    help="Amount of money you earn per productive hour")
 parser.add_argument('--multiplier', type=float,
-                    help="Number to multiply all productive time")
+                    help="If provided all productive time will be multiplied by that value")
 ###
 args = dict(parser.parse_args()._get_kwargs())
 if args['k']:
+    apikey = args['k']
+elif args['file']:
     if not path.exists(args['k']):
         raise FileNotFoundError("\"%s\" : File does not exists" % (args['k']))
     apikey = open(args['k'], 'r').read().replace(linesep, '')
-elif system() == "Windows":
-    apikey = open(
-        path.expanduser('~/.rescuetime'),
+elif system() == "Linux":
+    rescuetime_config_file = open(
+        path.expanduser('~/.config/RescueTime.com/rescuetimed.json'),
         'r'
-    ).read().replace(linesep, '')
-else:
-    apikey = open(
-        path.expanduser('~/.local/share/rescuetime.key'),
-        'r'
-    ).read().replace(linesep, '')
+    )
+    config = load(rescuetime_config_file)
+    apikey = config['data_key']
 
 if not apikey:
     raise Exception("No API key provided")
