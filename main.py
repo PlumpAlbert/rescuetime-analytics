@@ -6,6 +6,7 @@ from datetime import date
 from colorama import Fore, Back, Style
 from csv import DictReader
 from json import load
+import math
 
 parser = argparse.ArgumentParser(
     description='RescueTime Analytic API from your command line')
@@ -81,7 +82,7 @@ for day in day_info:
 
 
 def print_day(day, **kwargs):
-    text = day.center(12, ' ')
+    text = day.center(10, ' ')
     print(Fore.GREEN + text + Style.RESET_ALL, end='')
     for key in ['VP', 'P', 'N', 'D', 'VD']:
         if key == 'VP':
@@ -104,8 +105,8 @@ def print_day(day, **kwargs):
 
 def print_table_header():
     columns = [
-        Back.GREEN + Fore.BLACK + 'Date'.center(12, ' '),
-        Back.BLUE + Fore.BLACK + 'VP'.center(7, ' '),
+        Back.GREEN + Fore.BLACK + 'Date'.center(10, ' '),
+        Back.BLUE + Fore.BLACK + ' VP'.center(7, ' '),
         Back.CYAN + Fore.BLACK + 'P'.center(7, ' '),
         Back.WHITE + Fore.BLACK + 'N'.center(7, ' '),
         Back.YELLOW + Fore.BLACK + 'D'.center(7, ' '),
@@ -118,18 +119,18 @@ print_table_header()
 for day in day_info:
     print_day(day, **day_info[day])
 
+productive_time = 0
+for day in day_info:
+    current_day = day_info[day]
+    if 'VP' in current_day:
+        productive_time += int(current_day['VP'])
+    if 'P' in current_day:
+        productive_time += int(current_day['P'])
+if args['multiplier']:
+    productive_time *= args['multiplier'] / 3600
+m, s = divmod(productive_time, 60)
+h, m = divmod(m, 60)
+print(
+    f'Total productive hours: {Fore.GREEN}{math.floor(h)}h {m}min {s}sec{Style.RESET_ALL}')
 if args['wage']:
-    productive_time = 0
-    for day in day_info:
-        current_day = day_info[day]
-        if 'VP' in current_day:
-            productive_time += int(current_day['VP'])
-        if 'P' in current_day:
-            productive_time += int(current_day['P'])
-    m, s = divmod(productive_time, 60)
-    h, m = divmod(m, 60)
-    h += m/60
-    if args['multiplier']:
-        h *= args['multiplier']
-    print(f'Total productive hours: {Fore.GREEN}{h:.2f}{Style.RESET_ALL}')
-    print(f'Your wage is {Fore.GREEN}{h * args["wage"]:.2f}{Style.RESET_ALL}')
+    print(f'Your wage is {Fore.GREEN}{(h + m/60) * args["wage"]:.2f}{Style.RESET_ALL}')
