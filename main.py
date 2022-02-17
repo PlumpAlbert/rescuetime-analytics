@@ -127,7 +127,7 @@ for day in day_info:
     if 'P' in current_day:
         productive_time += int(current_day['P'])
 if args['multiplier']:
-    productive_time *= args['multiplier'] / 3600
+    productive_time = math.floor(productive_time * args['multiplier'])
 m, s = divmod(productive_time, 60)
 h, m = divmod(m, 60)
 print(
