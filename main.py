@@ -1,5 +1,6 @@
 import argparse
-from os import path, linesep
+from string import Template
+from os import path, linesep, environ
 from platform import system
 from rescuetime import analytic_data
 from datetime import date
@@ -33,13 +34,21 @@ elif args['file']:
     if not path.exists(args['k']):
         raise FileNotFoundError("\"%s\" : File does not exists" % (args['k']))
     apikey = open(args['k'], 'r').read().replace(linesep, '')
-elif system() == "Linux":
-    rescuetime_config_file = open(
-        path.expanduser('~/.config/RescueTime.com/rescuetimed.json'),
-        'r'
-    )
-    config = load(rescuetime_config_file)
-    apikey = config['data_key']
+else:
+    rescuetime_config_file = None
+    if system() == "Linux":
+        rescuetime_config_file = open(
+            path.expanduser('~/.config/RescueTime.com/rescuetimed.json'),
+            'r'
+        )
+    elif system() == 'Windows':
+        rescuetime_config_file = open(
+            Template('$LOCALAPPDATA/RescueTime.com/rescuetimed.json').substitute(environ),
+            'r'
+        )
+    if rescuetime_config_file:
+        config = load(rescuetime_config_file)
+        apikey = config['data_key']
 
 if not apikey:
     raise Exception("No API key provided")
