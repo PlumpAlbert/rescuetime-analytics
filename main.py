@@ -46,6 +46,11 @@ else:
             Template('$LOCALAPPDATA/RescueTime.com/rescuetimed.json').substitute(environ),
             'r'
         )
+    else:
+        rescuetime_config_file = open(
+            Template('$HOME/Library/RescueTime.com/rescuetimed.json').substitute(environ),
+            'r'
+        )
     if rescuetime_config_file:
         config = load(rescuetime_config_file)
         apikey = config['data_key']
