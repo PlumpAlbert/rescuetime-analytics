@@ -4,6 +4,6 @@ chardet==3.0.4
 colorama==0.4.3
 idna==2.9
 pycodestyle==2.6.0
-requests==2.24.0
+requests==2.31.0
 toml==0.10.1
 urllib3==1.26.5
